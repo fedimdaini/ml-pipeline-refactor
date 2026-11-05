@@ -58,7 +58,8 @@ class MLPipeline:
         # 5. Split and scale
         print("Step 4: Splitting and scaling...")
         X_train, X_test, y_train, y_test, scaler = split_and_scale(
-            X, y, test_size=self.test_size, random_state=self.random_state
+            X, y, test_size=self.test_size, random_state=self.random_state,
+            stratify=(problem_type == "classification"),
         )
 
         # 6. Correlation plot

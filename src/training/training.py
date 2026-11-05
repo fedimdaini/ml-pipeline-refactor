@@ -9,14 +9,18 @@ from sklearn.preprocessing import StandardScaler
 from src.metrics.metrics import compute_classification_metrics, compute_regression_metrics
 
 
-def split_and_scale(X, y, test_size=0.2, random_state=42):
+def split_and_scale(X, y, test_size=0.2, random_state=42, stratify=False):
     """
     Split data and scale features with StandardScaler.
 
     Replaces the ~8× copy-pasted train_test_split + scaler blocks.
+
+    stratify=True keeps class proportions in both splits; use it for
+    classification only (a continuous regression target cannot be stratified).
     """
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=test_size, random_state=random_state
+        X, y, test_size=test_size, random_state=random_state,
+        stratify=y if stratify else None,
     )
 
     scaler = StandardScaler()
